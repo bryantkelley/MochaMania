@@ -1,8 +1,9 @@
 import { FlatList, SafeAreaView, StyleSheet, Platform, PlatformColor, Button } from "react-native";
 import type { MochaRating } from "../utils/types";
 import { MochaRatingListItem } from "../components/MochaRatingListItem";
+import { useEffect } from "react";
 
-export const Home = ({ navigation }) => {
+export const MapView = ({ navigation }) => {
   const ratings: MochaRating[] = [
     {
       locationName: "Caffe Vita",
@@ -13,6 +14,13 @@ export const Home = ({ navigation }) => {
       milk: "oat",
     },
   ];
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <Button title="Add" onPress={() => ratings.push(ratings[0])} />,
+    });
+  }, [navigation]);
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -20,7 +28,6 @@ export const Home = ({ navigation }) => {
         data={ratings}
         renderItem={({ item }) => <MochaRatingListItem rating={item} />}
       />
-      <Button onPress={() => navigation.navigate("ListView")} title="Go to List View" />
     </SafeAreaView>
   );
 };

@@ -1,26 +1,31 @@
-export type Milk =
-  | "almond"
-  | "breve"
-  | "cashew"
-  | "corn"
-  | "coconut"
-  | "condensed"
-  | "evaporated"
-  | "goat"
-  | "hazelnut"
-  | "hemp"
-  | "macadamia"
-  | "pea"
-  | "potato"
-  | "oat"
-  | "rice"
-  | "skim"
-  | "soy"
-  | "whole";
+export const Milks = [
+  "almond",
+  "breve",
+  "cashew",
+  "coconut",
+  "condensed",
+  "corn",
+  "evaporated",
+  "goat",
+  "hazelnut",
+  "hemp",
+  "macadamia",
+  "oat",
+  "pea",
+  "potato",
+  "rice",
+  "skim",
+  "soy",
+  "whole",
+] as const;
 
-export type DrinkSizes = 3 | 4 | 5 | 6 | 8 | 10 | 12 | 16 | 20 | 24 | 32;
+export type Milk = (typeof Milks)[number];
 
-export type DrinkTemps = "iced" | "hot" | "extra hot";
+export const DrinkSizes = [6, 8, 10, 12, 16, 20, 24, 32] as const;
+export type DrinkSize = (typeof DrinkSizes)[number];
+
+export const DrinkTemps = ["iced", "hot"] as const;
+export type DrinkTemp = (typeof DrinkTemps)[number];
 
 export type MochaRating = {
   locationName: string;
@@ -29,9 +34,9 @@ export type MochaRating = {
     longitude: number;
   };
   date: string; // ISO
-  size?: DrinkSizes;
+  size?: DrinkSize | (number & {});
   milk?: Milk | (string & {});
-  temp?: DrinkTemps;
+  temp?: DrinkTemp;
   notes?: string;
   score: 0 | 1 | 2;
 };

@@ -18,8 +18,8 @@ export const MochaRatingListItem = ({ rating }: MochaRatingListItemProps) => {
       </RowView>
       <RowView style={styles.spaceEvenlyRow}>
         {size ? <Badge text={`${size}oz`} /> : null}
-        {milk ? <Badge text={milk} /> : null}
         {temp ? <Badge text={temp} /> : null}
+        {milk ? <Badge text={milk} /> : null}
       </RowView>
     </View>
   );

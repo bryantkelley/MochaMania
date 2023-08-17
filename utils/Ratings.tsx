@@ -14,7 +14,8 @@ export const RatingsProvider = ({ children }: PropsWithChildren) => {
   const [ratings, setRatings] = useState<MochaRating[]>();
 
   const addRating = (value: MochaRating) => {
-    setRatings((prev) => [...prev, value]);
+    console.log(value);
+    setRatings((prev) => [value, ...prev]);
   };
 
   const dangerousClearAllRatings = () => {

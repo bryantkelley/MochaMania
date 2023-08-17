@@ -1,32 +1,17 @@
 import { FlatList, SafeAreaView, StyleSheet, Platform, PlatformColor, Button } from "react-native";
 import { MochaRatingListItem } from "../components/MochaRatingListItem";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { RatingsContext } from "../utils/Ratings";
 
-export const ListView = ({ navigation }) => {
-  const exampleRating = {
-    locationName: "Caffe Vita",
-    date: "2022-08-19",
-    score: 0,
-    size: 12,
-    temp: "iced",
-    milk: "oat",
-  };
-
-  const { ratings, addRating } = useContext(RatingsContext);
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => <Button title="Add" onPress={() => addRating(exampleRating)} />,
-    });
-  }, [navigation]);
+export const ListView = () => {
+  const { ratings } = useContext(RatingsContext);
 
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
         style={styles.list}
         data={ratings}
-        renderItem={({ item }) => <MochaRatingListItem rating={item} />}
+        renderItem={({ item, index }) => <MochaRatingListItem rating={item} key={index} />}
       />
     </SafeAreaView>
   );

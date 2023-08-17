@@ -5,6 +5,7 @@ import { ListView, MapView, Settings } from "./screens";
 import { Button } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { RatingsProvider } from "./utils/Ratings";
+import { AddRating } from "./screens/AddRating";
 
 const Tabs = createBottomTabNavigator();
 
@@ -13,38 +14,39 @@ export default function App() {
     <RatingsProvider>
       <NavigationContainer>
         <Tabs.Navigator>
-          <Tabs.Group>
-            <Tabs.Screen
-              name="ListView"
-              component={ListView}
-              options={{
-                title: "Mocha List",
-                headerRight: () => <Button title="Add" />,
-                tabBarIcon: ({ color, size }) => <Ionicons color={color} size={size} name="list" />,
-              }}
-            />
-          </Tabs.Group>
-          <Tabs.Group>
-            <Tabs.Screen
-              name="MapView"
-              component={MapView}
-              options={{
-                title: "Mocha Map",
-                headerRight: () => <Button title="Add" />,
-                tabBarIcon: ({ color, size }) => <Ionicons color={color} size={size} name="map" />,
-              }}
-            />
-          </Tabs.Group>
-          <Tabs.Group>
-            <Tabs.Screen
-              name="Settings"
-              component={Settings}
-              options={{
-                title: "Settings",
-                tabBarIcon: ({ color, size }) => <Ionicons color={color} size={size} name="cog" />,
-              }}
-            />
-          </Tabs.Group>
+          <Tabs.Screen
+            name="AddRating"
+            component={AddRating}
+            options={{
+              title: "Add Rating",
+              headerRight: () => <Button title="Save" />,
+              tabBarIcon: ({ color, size }) => <Ionicons color={color} size={size} name="cafe" />,
+            }}
+          />
+          <Tabs.Screen
+            name="ListView"
+            component={ListView}
+            options={{
+              title: "Mocha List",
+              tabBarIcon: ({ color, size }) => <Ionicons color={color} size={size} name="list" />,
+            }}
+          />
+          <Tabs.Screen
+            name="MapView"
+            component={MapView}
+            options={{
+              title: "Mocha Map",
+              tabBarIcon: ({ color, size }) => <Ionicons color={color} size={size} name="map" />,
+            }}
+          />
+          <Tabs.Screen
+            name="Settings"
+            component={Settings}
+            options={{
+              title: "Settings",
+              tabBarIcon: ({ color, size }) => <Ionicons color={color} size={size} name="cog" />,
+            }}
+          />
         </Tabs.Navigator>
         <StatusBar style="auto" />
       </NavigationContainer>

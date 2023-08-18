@@ -1,7 +1,10 @@
-import { Platform, PlatformColor, StyleSheet, Text, View } from "react-native";
+import { Platform, PlatformColor, Pressable, StyleSheet, Text, View } from "react-native";
 import type { MochaRating } from "../utils/types";
 import { RowView } from "./RowView";
 import { Badge } from "./Badge";
+import { useState } from "react";
+
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 type MochaRatingListItemProps = {
   rating: MochaRating;
@@ -10,18 +13,26 @@ type MochaRatingListItemProps = {
 const scoreLabels = ["🛑", "⚠️", "✅"];
 export const MochaRatingListItem = ({ rating }: MochaRatingListItemProps) => {
   const { locationName, size, milk, temp, score } = rating;
+
   return (
-    <View style={styles.container}>
-      <RowView style={styles.spaceBetweenRow}>
-        <Text style={styles.headerText}>{locationName}</Text>
-        <Text>{scoreLabels[score]}</Text>
+    <Pressable style={styles.container} onPress={() => {}}>
+      <RowView>
+        <View style={styles.dataView}>
+          <RowView>
+            <Text style={styles.headerText}>{locationName}</Text>
+          </RowView>
+          <RowView style={styles.detailRow}>
+            <Badge text={scoreLabels[score]} style={styles.scoreBadge} />
+            {size ? <Badge text={`${size}oz`} /> : null}
+            {temp ? <Badge text={temp} /> : null}
+            {milk ? <Badge text={milk} /> : null}
+          </RowView>
+        </View>
+        <View style={styles.buttonView}>
+          <Ionicons name="chevron-forward" size={24} color={PlatformColor("systemFill")} />
+        </View>
       </RowView>
-      <RowView style={styles.spaceEvenlyRow}>
-        {size ? <Badge text={`${size}oz`} /> : null}
-        {temp ? <Badge text={temp} /> : null}
-        {milk ? <Badge text={milk} /> : null}
-      </RowView>
-    </View>
+    </Pressable>
   );
 };
 
@@ -30,24 +41,25 @@ const styles = StyleSheet.create({
     padding: 8,
     ...Platform.select({
       ios: {
-        borderColor: PlatformColor("separator"),
         backgroundColor: PlatformColor("systemBackground"),
       },
     }),
-    borderBottomWidth: 1,
+    flex: 1,
   },
-  detailText: {
-    textTransform: "uppercase",
-    fontSize: 12,
+  scoreBadge: {
+    backgroundColor: "transparent",
   },
   headerText: {
     fontSize: 16,
   },
-  spaceEvenlyRow: {
-    justifyContent: "space-evenly",
-    width: "100%",
+  detailRow: {
+    justifyContent: "flex-start",
   },
-  spaceBetweenRow: {
-    justifyContent: "space-between",
+  buttonView: {
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  dataView: {
+    flexGrow: 1,
   },
 });

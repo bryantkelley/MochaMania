@@ -30,15 +30,15 @@ export type DrinkTemp = (typeof DrinkTemps)[number];
 export type MochaRating = {
   id?: string;
   locationName: string;
-  coordinate?: {
+  coordinate: {
     latitude: number;
     longitude: number;
   };
   date: string; // ISO
-  size?: DrinkSize | (number & {});
-  milk?: Milk | (string & {});
-  temp?: DrinkTemp;
-  notes?: string;
+  size: DrinkSize | (number & {});
+  milk: Milk | (string & {});
+  temp: DrinkTemp;
+  notes: string;
   score: 0 | 1 | 2;
 };
 

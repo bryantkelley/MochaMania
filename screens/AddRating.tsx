@@ -33,7 +33,7 @@ export const AddRating = ({ navigation }) => {
           title="Save"
           onPress={() => {
             addRating(rating);
-            navigation.navigate("ListView");
+            navigation.goBack();
             setRating(blankRating);
           }}
         />

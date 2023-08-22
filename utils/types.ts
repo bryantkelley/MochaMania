@@ -28,6 +28,7 @@ export const DrinkTemps = ["iced", "hot"] as const;
 export type DrinkTemp = (typeof DrinkTemps)[number];
 
 export type MochaRating = {
+  id?: string;
   locationName: string;
   coordinate?: {
     latitude: number;

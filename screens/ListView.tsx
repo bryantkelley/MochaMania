@@ -8,11 +8,24 @@ import {
   View,
 } from "react-native";
 import { MochaRatingListItem } from "../components/MochaRatingListItem";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { RatingsContext } from "../utils/Ratings";
 
-export const ListView = () => {
+export const ListView = ({ navigation }) => {
   const { ratings } = useContext(RatingsContext);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          title="Add"
+          onPress={() => {
+            navigation.navigate("ListAddRating");
+          }}
+        />
+      ),
+    });
+  }, [navigation]);
 
   return (
     <SafeAreaView style={styles.container}>

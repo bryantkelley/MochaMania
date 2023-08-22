@@ -42,6 +42,20 @@ export const MochaRatingInput = ({ rating, setRating }: MochaRatingInputProps) =
         </View>
         <RowView style={styles.spaceBetweenRow}>
           <View style={styles.pickerInputContainer}>
+            <Text id="scoreLabel" style={styles.inputLabel}>
+              Rating
+            </Text>
+            <Picker
+              selectedValue={score}
+              onValueChange={(itemValue) => setRating((prev) => ({ ...prev, score: itemValue }))}
+              style={styles.pickerInput}
+            >
+              <Picker.Item value={2} label="✅" />
+              <Picker.Item value={1} label="⚠️" />
+              <Picker.Item value={0} label="🛑" />
+            </Picker>
+          </View>
+          <View style={styles.pickerInputContainer}>
             <Text id="sizeLabel" style={styles.inputLabel}>
               Size
             </Text>
@@ -67,20 +81,6 @@ export const MochaRatingInput = ({ rating, setRating }: MochaRatingInputProps) =
               {DrinkTemps.map((d) => (
                 <Picker.Item value={d} label={d} key="d" />
               ))}
-            </Picker>
-          </View>
-          <View style={styles.pickerInputContainer}>
-            <Text id="scoreLabel" style={styles.inputLabel}>
-              Rating
-            </Text>
-            <Picker
-              selectedValue={score}
-              onValueChange={(itemValue) => setRating((prev) => ({ ...prev, score: itemValue }))}
-              style={styles.pickerInput}
-            >
-              <Picker.Item value={2} label="✅" />
-              <Picker.Item value={1} label="⚠️" />
-              <Picker.Item value={0} label="🛑" />
             </Picker>
           </View>
         </RowView>

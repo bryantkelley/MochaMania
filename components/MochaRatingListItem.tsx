@@ -1,10 +1,11 @@
 import { Platform, PlatformColor, Pressable, StyleSheet, Text, View } from "react-native";
-import type { MochaRating } from "../utils/types";
+import type { StackParamList, MochaRating } from "../utils/types";
 import { RowView } from "./RowView";
 import { Badge } from "./Badge";
-import { useState } from "react";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type MochaRatingListItemProps = {
   rating: MochaRating;
@@ -12,10 +13,14 @@ type MochaRatingListItemProps = {
 
 const scoreLabels = ["🛑", "⚠️", "✅"];
 export const MochaRatingListItem = ({ rating }: MochaRatingListItemProps) => {
+  const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
   const { locationName, size, milk, temp, score } = rating;
 
   return (
-    <Pressable style={styles.container} onPress={() => {}}>
+    <Pressable
+      style={styles.container}
+      onPress={() => navigation.navigate("DetailView", { rating })}
+    >
       <RowView>
         <View style={styles.dataView}>
           <RowView>

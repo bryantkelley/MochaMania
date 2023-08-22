@@ -8,23 +8,17 @@ import {
 } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import { RatingsContext } from "../utils/Ratings";
-import { MochaRating } from "../utils/types";
+import { StackParamList, MochaRating } from "../utils/types";
 import { MochaRatingInput } from "../components/MochaRatingInput";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-export const AddRating = ({ navigation }) => {
-  const { addRating } = useContext(RatingsContext);
+export const EditRating = ({ route }) => {
+  const { rating } = route.params;
+  const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
+  const { updateRating } = useContext(RatingsContext);
 
-  const blankRating: MochaRating = {
-    locationName: "",
-    date: "",
-    size: 16,
-    temp: "iced",
-    milk: "oat",
-    score: 1,
-    notes: "",
-  };
-
-  const [rating, setRating] = useState<MochaRating>(blankRating);
+  const [ratingToEdit, setRatingtoEdit] = useState<MochaRating>(rating);
 
   useEffect(() => {
     navigation.setOptions({
@@ -33,19 +27,19 @@ export const AddRating = ({ navigation }) => {
         <Button
           title="Save"
           onPress={() => {
-            addRating(rating);
-            navigation.goBack();
-            setRating(blankRating);
+            console.log(ratingToEdit);
+            updateRating(rating.id, ratingToEdit);
+            navigation.navigate("DetailView", { rating: ratingToEdit });
           }}
         />
       ),
     });
-  }, [navigation, rating]);
+  }, [navigation, rating, ratingToEdit]);
 
   return (
     <KeyboardAvoidingView style={styles.container}>
       <ScrollView>
-        <MochaRatingInput rating={rating} setRating={setRating} />
+        <MochaRatingInput rating={ratingToEdit} setRating={setRatingtoEdit} />
       </ScrollView>
     </KeyboardAvoidingView>
   );

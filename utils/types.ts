@@ -41,3 +41,10 @@ export type MochaRating = {
   notes?: string;
   score: 0 | 1 | 2;
 };
+
+export type StackParamList = {
+  MainView: undefined;
+  AddRating: undefined;
+  DetailView: { rating: MochaRating };
+  EditRating: { rating: MochaRating };
+};

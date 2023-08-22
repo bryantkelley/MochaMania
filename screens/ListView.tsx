@@ -20,7 +20,7 @@ export const ListView = ({ navigation }) => {
         <Button
           title="Add"
           onPress={() => {
-            navigation.navigate("ListAddRating");
+            navigation.navigate("AddRating");
           }}
         />
       ),

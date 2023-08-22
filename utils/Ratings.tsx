@@ -105,10 +105,14 @@ export const RatingsProvider = ({ children }: PropsWithChildren) => {
   };
 
   const updateRating = (id: string, value: MochaRating) => {
-    const newRatings = ratings;
-    const indexToUpdate = newRatings.findIndex((m) => m.id === id);
-    newRatings[indexToUpdate] = value;
-    setRatings(newRatings);
+    setRatings((prev) =>
+      prev.map((r) => {
+        if (r.id === id) {
+          return value;
+        }
+        return r;
+      })
+    );
   };
 
   const dangerousLoadExampleRatings = () => {

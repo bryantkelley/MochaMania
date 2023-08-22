@@ -1,12 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { ListView, MapView, Settings } from "./screens";
 import { Button } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { RatingsProvider } from "./utils/Ratings";
 import { AddRating } from "./screens/AddRating";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { DetailView } from "./screens/DetailView";
+import { EditRating } from "./screens/EditRating";
 
 const Tabs = createBottomTabNavigator();
 
@@ -16,7 +18,7 @@ const MapStack = createNativeStackNavigator();
 const ListScreens = () => (
   <ListStack.Navigator>
     <ListStack.Screen
-      name="MochaList"
+      name="MainView"
       component={ListView}
       options={{
         title: "Mocha List",
@@ -24,10 +26,26 @@ const ListScreens = () => (
       }}
     />
     <ListStack.Screen
-      name="ListAddRating"
+      name="AddRating"
       component={AddRating}
       options={{
         title: "Add Rating",
+        headerRight: () => <Button title="Save" />,
+      }}
+    />
+    <ListStack.Screen
+      name="DetailView"
+      component={DetailView}
+      options={{
+        title: "Rating Details",
+        headerRight: () => <Button title="Edit" />,
+      }}
+    />
+    <ListStack.Screen
+      name="EditRating"
+      component={EditRating}
+      options={{
+        title: "Edit Rating",
         headerRight: () => <Button title="Save" />,
       }}
     />
@@ -37,7 +55,7 @@ const ListScreens = () => (
 const MapScreens = () => (
   <MapStack.Navigator>
     <MapStack.Screen
-      name="MochaMap"
+      name="MainView"
       component={MapView}
       options={{
         title: "Mocha Map",
@@ -45,10 +63,26 @@ const MapScreens = () => (
       }}
     />
     <MapStack.Screen
-      name="MapAddRating"
+      name="AddRating"
       component={AddRating}
       options={{
         title: "Add Rating",
+        headerRight: () => <Button title="Save" />,
+      }}
+    />
+    <MapStack.Screen
+      name="DetailView"
+      component={DetailView}
+      options={{
+        title: "Rating Details",
+        headerRight: () => <Button title="Edit" />,
+      }}
+    />
+    <MapStack.Screen
+      name="EditRating"
+      component={EditRating}
+      options={{
+        title: "Edit Rating",
         headerRight: () => <Button title="Save" />,
       }}
     />

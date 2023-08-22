@@ -11,7 +11,7 @@ export const MapView = ({ navigation }) => {
         <Button
           title="Add"
           onPress={() => {
-            navigation.navigate("MapAddRating");
+            navigation.navigate("AddRating");
           }}
         />
       ),

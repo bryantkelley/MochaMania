@@ -27,7 +27,6 @@ export const EditRating = ({ route }) => {
         <Button
           title="Save"
           onPress={() => {
-            console.log(ratingToEdit);
             updateRating(rating.id, ratingToEdit);
             navigation.navigate("DetailView", { rating: ratingToEdit });
           }}

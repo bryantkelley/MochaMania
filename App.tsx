@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { ListView, MapView, Settings } from "./screens";
+import { ListView, MapScreen, Settings } from "./screens";
 import { Button } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { RatingsProvider } from "./utils/Ratings";
@@ -56,7 +56,7 @@ const MapScreens = () => (
   <MapStack.Navigator>
     <MapStack.Screen
       name="MainView"
-      component={MapView}
+      component={MapScreen}
       options={{
         title: "Mocha Map",
         headerRight: () => <Button title="Add" />,
@@ -115,6 +115,7 @@ export default function App() {
             component={Settings}
             options={{
               title: "Settings",
+              headerShown: true,
               tabBarIcon: ({ color, size }) => <Ionicons color={color} size={size} name="cog" />,
             }}
           />

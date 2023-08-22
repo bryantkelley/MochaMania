@@ -7,13 +7,12 @@ import {
   Text,
   View,
   ScrollView,
-  Button,
 } from "react-native";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { DrinkSizes, DrinkTemps, Milks, MochaRating } from "../utils/types";
 import { RowView } from "../components/RowView";
 import { Picker } from "@react-native-picker/picker";
-import { useNavigation } from "@react-navigation/native";
+import MapView, { Marker } from "react-native-maps";
 
 type MochaRatingInputProps = {
   rating: MochaRating;
@@ -21,8 +20,6 @@ type MochaRatingInputProps = {
 };
 
 export const MochaRatingInput = ({ rating, setRating }: MochaRatingInputProps) => {
-  const navigation = useNavigation();
-
   const { locationName, coordinate, date, size, milk, temp, score, notes } = rating;
 
   return (
@@ -39,6 +36,30 @@ export const MochaRatingInput = ({ rating, setRating }: MochaRatingInputProps) =
             style={styles.input}
             aria-labelledby="locationNameLabel"
           />
+        </View>
+        <View style={styles.inputContainer}>
+          <MapView
+            style={styles.mapStyle}
+            initialRegion={{
+              latitude: coordinate.latitude,
+              longitude: coordinate.longitude,
+              latitudeDelta: 0.05,
+              longitudeDelta: 0.05,
+            }}
+          >
+            <Marker
+              key="input-marker"
+              draggable
+              coordinate={coordinate}
+              onDragEnd={(e) => {
+                e.persist();
+                setRating((prev) => ({
+                  ...prev,
+                  coordinate: e?.nativeEvent?.coordinate ?? prev.coordinate,
+                }));
+              }}
+            />
+          </MapView>
         </View>
         <RowView style={styles.spaceBetweenRow}>
           <View style={styles.pickerInputContainer}>
@@ -163,5 +184,10 @@ const styles = StyleSheet.create({
   spaceBetweenRow: {
     justifyContent: "space-evenly",
     marginHorizontal: 4,
+  },
+  mapStyle: {
+    width: "100%",
+    height: 256,
+    borderRadius: 16,
   },
 });

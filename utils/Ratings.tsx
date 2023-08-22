@@ -17,7 +17,7 @@ const exampleRatings: MochaRating[] = [
     temp: "hot",
     milk: "oat",
     score: 2,
-    notes: "",
+    notes: "Perfect",
   },
   {
     id: "b10eadd4-7d1a-41c5-90bf-7ae42df643ee",
@@ -31,7 +31,7 @@ const exampleRatings: MochaRating[] = [
     temp: "iced",
     milk: "oat",
     score: 0,
-    notes: "",
+    notes: "Fairly chalky, slight sour",
   },
   {
     id: "9749d384-aa2a-4f27-85f2-36d89d28e2ec",
@@ -45,7 +45,7 @@ const exampleRatings: MochaRating[] = [
     temp: "hot",
     milk: "oat",
     score: 2,
-    notes: "",
+    notes: "Slightly too sweet, otherwise perfect",
   },
   {
     id: "a5f2277a-32a6-44a5-b7ad-8c83971f8e52",
@@ -59,7 +59,7 @@ const exampleRatings: MochaRating[] = [
     temp: "iced",
     milk: "oat",
     score: 1,
-    notes: "",
+    notes: "Chalky, otherwise good",
   },
   {
     id: "4b2e4ccb-3fa3-46ff-8bfb-6ca098c8c441",
@@ -73,7 +73,7 @@ const exampleRatings: MochaRating[] = [
     temp: "hot",
     milk: "whole",
     score: 2,
-    notes: "",
+    notes: "Kinda perfect",
   },
   {
     id: "df8e9f14-082e-4916-b7c1-d564596b09b0",
@@ -87,7 +87,7 @@ const exampleRatings: MochaRating[] = [
     temp: "hot",
     milk: "oat",
     score: 2,
-    notes: "",
+    notes: "Perfect, came with a donut hole",
   },
   {
     id: "7932336c-68b2-432a-9f2d-249674f07f19",
@@ -101,7 +101,7 @@ const exampleRatings: MochaRating[] = [
     temp: "iced",
     milk: "whole",
     score: 1,
-    notes: "",
+    notes: "Slight chalk within tolerance, far too much ice",
   },
   {
     id: "e17f9ef6-4f9f-443a-955e-b6f700f50593",
@@ -115,7 +115,7 @@ const exampleRatings: MochaRating[] = [
     temp: "iced",
     milk: "oat",
     score: 0,
-    notes: "",
+    notes: "Chalky and far too much ice",
   },
 ];
 

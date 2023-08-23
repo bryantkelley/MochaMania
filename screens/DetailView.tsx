@@ -34,7 +34,7 @@ export const DetailView = ({ route }) => {
         <View style={styles.notesView}>
           <MapView
             style={styles.mapStyle}
-            initialRegion={{
+            region={{
               latitude: coordinate.latitude,
               longitude: coordinate.longitude,
               latitudeDelta: 0.005,

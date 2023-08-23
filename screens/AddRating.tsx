@@ -17,8 +17,8 @@ export const AddRating = ({ navigation }) => {
   const blankRating: MochaRating = {
     locationName: "",
     coordinate: {
-      latitude: 47.60898,
-      longitude: -122.33993,
+      latitude: 47.60998,
+      longitude: -122.34262,
     },
     date: "",
     size: 16,

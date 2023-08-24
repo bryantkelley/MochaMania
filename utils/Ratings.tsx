@@ -126,8 +126,8 @@ export const RatingsContext = createContext({
   dangerousClearAllRatings: () => {},
   dangerousLoadExampleRatings: () => {},
   initialRegion: {
-    latitude: 47.60898,
-    longitude: -122.33993,
+    latitude: 47.60998,
+    longitude: -122.34262,
     latitudeDelta: 0.5,
     longitudeDelta: 0.5,
   },

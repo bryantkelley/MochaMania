@@ -20,7 +20,7 @@ export const AddRating = ({ navigation }) => {
       latitude: 47.60998,
       longitude: -122.34262,
     },
-    date: "",
+    date: new Date().toISOString(),
     size: 16,
     temp: "iced",
     milk: "oat",

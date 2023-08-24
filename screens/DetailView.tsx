@@ -1,7 +1,7 @@
 import { SafeAreaView, StyleSheet, Button, View, ScrollView, Text } from "react-native";
 import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { StackParamList } from "../utils/types";
+import { MochaRating, StackParamList } from "../utils/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RowView } from "../components/RowView";
 import { Badge } from "../components/Badge";
@@ -12,7 +12,7 @@ const scoreLabels = ["🛑", "⚠️", "✅"];
 export const DetailView = ({ route }) => {
   const { rating } = route.params;
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
-  const { score, coordinate, size, temp, milk, notes } = rating;
+  const { date, score, coordinate, size, temp, milk, notes } = rating as MochaRating;
 
   useEffect(() => {
     navigation.setOptions({
@@ -50,6 +50,12 @@ export const DetailView = ({ route }) => {
           {temp ? <Badge text={temp} /> : null}
           {milk ? <Badge text={milk} /> : null}
         </RowView>
+        {date ? (
+          <View style={styles.notesView}>
+            <Text style={styles.headerText}>Date</Text>
+            <Text>{new Date(date).toLocaleString()}</Text>
+          </View>
+        ) : null}
         <View style={styles.notesView}>
           <Text style={styles.headerText}>Notes</Text>
           <Text>{notes}</Text>
@@ -74,7 +80,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   notesView: {
-    margin: 16,
+    marginHorizontal: 16,
+    marginVertical: 8,
   },
   headerText: {
     fontSize: 16,

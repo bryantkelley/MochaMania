@@ -13,6 +13,7 @@ import { DrinkSizes, DrinkTemps, Milks, MochaRating } from "../utils/types";
 import { RowView } from "../components/RowView";
 import { Picker } from "@react-native-picker/picker";
 import MapView, { Marker } from "react-native-maps";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 type MochaRatingInputProps = {
   rating: MochaRating;
@@ -36,6 +37,19 @@ export const MochaRatingInput = ({ rating, setRating }: MochaRatingInputProps) =
             style={styles.input}
             aria-labelledby="locationNameLabel"
           />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text id="dateLabel" style={styles.inputLabel}>
+            Date
+          </Text>
+          <RowView style={styles.dateContainer}>
+            <DateTimePicker
+              aria-labelledby="dateLabel"
+              value={new Date(date)}
+              mode="datetime"
+              onChange={(e, d) => setRating((prev) => ({ ...prev, date: d.toISOString() }))}
+            />
+          </RowView>
         </View>
         <View style={styles.inputContainer}>
           <MapView
@@ -188,6 +202,16 @@ const styles = StyleSheet.create({
   mapStyle: {
     width: "100%",
     height: 256,
+    borderRadius: 16,
+  },
+  dateContainer: {
+    minHeight: 48,
+    paddingTop: 4,
+    ...Platform.select({
+      ios: {
+        backgroundColor: PlatformColor("tertiarySystemBackground"),
+      },
+    }),
     borderRadius: 16,
   },
 });

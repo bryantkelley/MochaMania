@@ -34,7 +34,7 @@ export type MochaRating = {
     latitude: number;
     longitude: number;
   };
-  date: string; // ISO
+  date: string;
   size: DrinkSize | (number & {});
   milk: Milk | (string & {});
   temp: DrinkTemp;

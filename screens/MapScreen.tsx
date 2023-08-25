@@ -23,7 +23,7 @@ export const MapScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <MapView style={styles.mapStyle} initialRegion={initialRegion}>
+      <MapView style={styles.mapStyle} region={initialRegion}>
         {ratings.map((r) => (
           <Marker
             key={r.id}

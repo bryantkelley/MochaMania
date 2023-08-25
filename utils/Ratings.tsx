@@ -204,8 +204,8 @@ export const RatingsProvider = ({ children }: PropsWithChildren) => {
       });
       const avgLat = sumLat / ratings.length;
       const avgLong = sumLong / ratings.length;
-      let diffLat = 0;
-      let diffLong = 0;
+      let diffLat = 0.00005;
+      let diffLong = 0.00005;
       ratings.forEach((r) => {
         const avgLatDiff = Math.abs(avgLat - r.coordinate.latitude);
         if (avgLatDiff > diffLat) {
@@ -226,7 +226,7 @@ export const RatingsProvider = ({ children }: PropsWithChildren) => {
       });
     };
 
-    if (ratings) {
+    if (ratings?.length) {
       updateInitialRegion();
     }
   }, [ratings]);

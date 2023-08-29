@@ -123,6 +123,7 @@ export const RatingsContext = createContext({
   ratings: [] as MochaRating[],
   addRating: (value: MochaRating) => {},
   updateRating: (id: string, value: MochaRating) => {},
+  deleteRating: (id: string) => {},
   dangerousClearAllRatings: () => {},
   dangerousLoadExampleRatings: () => {},
   initialRegion: {
@@ -151,6 +152,10 @@ export const RatingsProvider = ({ children }: PropsWithChildren) => {
         return r;
       })
     );
+  };
+
+  const deleteRating = (id: string) => {
+    setRatings((prev) => prev.filter((m) => m.id !== id));
   };
 
   const dangerousLoadExampleRatings = () => {
@@ -237,6 +242,7 @@ export const RatingsProvider = ({ children }: PropsWithChildren) => {
         ratings,
         addRating,
         updateRating,
+        deleteRating,
         dangerousClearAllRatings,
         dangerousLoadExampleRatings,
         initialRegion,

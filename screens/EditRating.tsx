@@ -8,6 +8,7 @@ import {
   Modal,
   View,
   Text,
+  Keyboard,
 } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import { RatingsContext } from "../utils/Ratings";
@@ -16,6 +17,7 @@ import { MochaRatingInput } from "../components/MochaRatingInput";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RowView } from "../components/RowView";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export const EditRating = ({ route }) => {
   const { rating } = route.params;
@@ -24,6 +26,9 @@ export const EditRating = ({ route }) => {
 
   const [ratingToEdit, setRatingtoEdit] = useState<MochaRating>(rating);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     navigation.setOptions({
@@ -40,35 +45,61 @@ export const EditRating = ({ route }) => {
     });
   }, [navigation, rating, ratingToEdit]);
 
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
+      setKeyboardVisible(true);
+    });
+    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
+      setKeyboardVisible(false);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
+
   return (
-    <KeyboardAvoidingView style={styles.container}>
-      <ScrollView>
-        <MochaRatingInput rating={ratingToEdit} setRating={setRatingtoEdit} />
-        <RowView style={styles.spaceEvenlyRow}>
-          <Button
-            title="Delete Rating"
-            onPress={() => setDeleteModalVisible(true)}
-            color={styles.dangerousButton.color}
-          />
-        </RowView>
-        <Modal visible={deleteModalVisible} presentationStyle="pageSheet" animationType="slide">
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalText}>Delete this rating? This action is not reversible.</Text>
-            <RowView style={styles.spaceEvenlyRow}>
-              <Button
-                title="Confirm"
-                onPress={() => {
-                  deleteRating(rating.id);
-                  setDeleteModalVisible(false);
-                  navigation.navigate("MainView");
-                }}
-                color={styles.dangerousButton.color}
-              />
-              <Button title="Cancel" onPress={() => setDeleteModalVisible(false)} />
-            </RowView>
-          </View>
-        </Modal>
-      </ScrollView>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior="position"
+      keyboardVerticalOffset={-148 - insets.top}
+    >
+      <View
+        style={{
+          paddingBottom: keyboardVisible ? 212 + insets.bottom : 0,
+        }}
+      >
+        <ScrollView>
+          <MochaRatingInput rating={ratingToEdit} setRating={setRatingtoEdit} />
+          <RowView style={styles.spaceEvenlyRow}>
+            <Button
+              title="Delete Rating"
+              onPress={() => setDeleteModalVisible(true)}
+              color={styles.dangerousButton.color}
+            />
+          </RowView>
+          <Modal visible={deleteModalVisible} presentationStyle="pageSheet" animationType="slide">
+            <View style={styles.modalContainer}>
+              <Text style={styles.modalText}>
+                Delete this rating? This action is not reversible.
+              </Text>
+              <RowView style={styles.spaceEvenlyRow}>
+                <Button
+                  title="Confirm"
+                  onPress={() => {
+                    deleteRating(rating.id);
+                    setDeleteModalVisible(false);
+                    navigation.navigate("MainView");
+                  }}
+                  color={styles.dangerousButton.color}
+                />
+                <Button title="Cancel" onPress={() => setDeleteModalVisible(false)} />
+              </RowView>
+            </View>
+          </Modal>
+        </ScrollView>
+      </View>
     </KeyboardAvoidingView>
   );
 };
@@ -98,7 +129,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     marginVertical: 16,
   },
-
   dangerousButton: {
     ...Platform.select({
       ios: {

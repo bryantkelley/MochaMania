@@ -5,11 +5,14 @@ import {
   Button,
   KeyboardAvoidingView,
   ScrollView,
+  Keyboard,
+  View,
 } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import { RatingsContext } from "../utils/Ratings";
 import { MochaRating } from "../utils/types";
 import { MochaRatingInput } from "../components/MochaRatingInput";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export const AddRating = ({ navigation }) => {
   const { addRating } = useContext(RatingsContext);
@@ -29,6 +32,8 @@ export const AddRating = ({ navigation }) => {
   };
 
   const [rating, setRating] = useState<MochaRating>(blankRating);
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     navigation.setOptions({
@@ -46,11 +51,35 @@ export const AddRating = ({ navigation }) => {
     });
   }, [navigation, rating]);
 
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
+      setKeyboardVisible(true);
+    });
+    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
+      setKeyboardVisible(false);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
+
   return (
-    <KeyboardAvoidingView style={styles.container}>
-      <ScrollView>
-        <MochaRatingInput rating={rating} setRating={setRating} />
-      </ScrollView>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior="position"
+      keyboardVerticalOffset={-148 - insets.top}
+    >
+      <View
+        style={{
+          paddingBottom: keyboardVisible ? 212 + insets.bottom : 0,
+        }}
+      >
+        <ScrollView>
+          <MochaRatingInput rating={rating} setRating={setRating} />
+        </ScrollView>
+      </View>
     </KeyboardAvoidingView>
   );
 };
@@ -65,38 +94,6 @@ const styles = StyleSheet.create({
     }),
     alignItems: "stretch",
     justifyContent: "flex-start",
-  },
-  inputContainer: {
-    marginHorizontal: 8,
-    marginVertical: 8,
-  },
-  inputLabel: {
-    marginHorizontal: 8,
-    marginVertical: 4,
-  },
-  input: {
-    minHeight: 48,
-    padding: 8,
-    ...Platform.select({
-      ios: {
-        backgroundColor: PlatformColor("tertiarySystemBackground"),
-      },
-    }),
-    borderRadius: 16,
-  },
-  pickerInput: {
-    minHeight: 48,
-    padding: 4,
-    ...Platform.select({
-      ios: {
-        backgroundColor: PlatformColor("tertiarySystemBackground"),
-      },
-    }),
-    borderRadius: 16,
-  },
-  pickerInputContainer: {
-    flex: 1,
-    marginHorizontal: 4,
   },
   spaceBetweenRow: {
     justifyContent: "space-evenly",

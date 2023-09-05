@@ -1,6 +1,6 @@
 import { SafeAreaView, StyleSheet, Button, View, ScrollView, Text } from "react-native";
 import { useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { MochaRating, StackParamList } from "../utils/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RowView } from "../components/RowView";
@@ -12,6 +12,9 @@ const scoreLabels = ["🛑", "⚠️", "✅"];
 export const DetailView = ({ route }) => {
   const { rating } = route.params;
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
+
+  const { colors } = useTheme();
+
   const { date, score, coordinate, size, temp, milk, notes } = rating as MochaRating;
 
   useEffect(() => {
@@ -29,7 +32,7 @@ export const DetailView = ({ route }) => {
   }, [navigation, rating]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <ScrollView>
         <View style={styles.notesView}>
           <MapView
@@ -52,13 +55,13 @@ export const DetailView = ({ route }) => {
         </RowView>
         {date ? (
           <View style={styles.notesView}>
-            <Text style={styles.headerText}>Date</Text>
-            <Text>{new Date(date).toLocaleString()}</Text>
+            <Text style={[styles.headerText, { color: colors.text }]}>Date</Text>
+            <Text style={{ color: colors.text }}>{new Date(date).toLocaleString()}</Text>
           </View>
         ) : null}
         <View style={styles.notesView}>
-          <Text style={styles.headerText}>Notes</Text>
-          <Text>{notes}</Text>
+          <Text style={[styles.headerText, { color: colors.text }]}>Notes</Text>
+          <Text style={{ color: colors.text }}>{notes}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -68,7 +71,6 @@ export const DetailView = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "stretch",
     justifyContent: "center",
   },

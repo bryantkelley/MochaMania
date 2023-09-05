@@ -1,14 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { ListView, MapScreen, Settings } from "./screens";
-import { Button } from "react-native";
+import { ListView, MapScreen, Settings, AddRating, DetailView, EditRating } from "./screens";
+import { Button, useColorScheme } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { RatingsProvider } from "./utils/Ratings";
-import { AddRating } from "./screens/AddRating";
-import { DetailView } from "./screens/DetailView";
-import { EditRating } from "./screens/EditRating";
 
 const Tabs = createBottomTabNavigator();
 
@@ -90,9 +87,11 @@ const MapScreens = () => (
 );
 
 export default function App() {
+  const scheme = useColorScheme();
+
   return (
     <RatingsProvider>
-      <NavigationContainer>
+      <NavigationContainer theme={scheme === "dark" ? DarkTheme : DefaultTheme}>
         <Tabs.Navigator screenOptions={{ headerShown: false }}>
           <Tabs.Screen
             name="ListView"

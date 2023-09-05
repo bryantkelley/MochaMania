@@ -4,7 +4,7 @@ import { RowView } from "./RowView";
 import { Badge } from "./Badge";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type MochaRatingListItemProps = {
@@ -14,17 +14,18 @@ type MochaRatingListItemProps = {
 const scoreLabels = ["🛑", "⚠️", "✅"];
 export const MochaRatingListItem = ({ rating }: MochaRatingListItemProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
+  const { colors } = useTheme();
   const { locationName, size, milk, temp, score } = rating;
 
   return (
     <Pressable
-      style={styles.container}
+      style={[styles.container]}
       onPress={() => navigation.navigate("DetailView", { rating })}
     >
       <RowView>
         <View style={styles.dataView}>
           <RowView>
-            <Text style={styles.headerText}>{locationName}</Text>
+            <Text style={[styles.headerText, { color: colors.text }]}>{locationName}</Text>
           </RowView>
           <RowView style={styles.detailRow}>
             <Badge text={scoreLabels[score]} style={styles.scoreBadge} />

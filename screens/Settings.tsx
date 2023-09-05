@@ -11,22 +11,24 @@ import {
 } from "react-native";
 import { RatingsContext } from "../utils/Ratings";
 import { RowView } from "../components/RowView";
+import { useTheme } from "@react-navigation/native";
 
 export const Settings = ({ navigation }) => {
+  const { colors } = useTheme();
   const { dangerousClearAllRatings, dangerousLoadExampleRatings } = useContext(RatingsContext);
   const [replaceModalVisible, setReplaceModalVisible] = useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <Button
         title="Replace with Example Data"
         onPress={() => setReplaceModalVisible(true)}
         color={styles.dangerousButton.color}
       />
       <Modal visible={replaceModalVisible} presentationStyle="pageSheet" animationType="slide">
-        <View style={styles.modalContainer}>
-          <Text style={styles.modalText}>
+        <View style={[styles.modalContainer, { backgroundColor: colors.card }]}>
+          <Text style={[styles.modalText, { color: colors.text }]}>
             This will replace all ratings in the app with sample ratings. This is not reversible.
           </Text>
           <RowView style={styles.spaceEvenlyRow}>
@@ -47,9 +49,14 @@ export const Settings = ({ navigation }) => {
         onPress={() => setDeleteModalVisible(true)}
         color={styles.dangerousButton.color}
       />
-      <Modal visible={deleteModalVisible} presentationStyle="pageSheet" animationType="slide">
-        <View style={styles.modalContainer}>
-          <Text style={styles.modalText}>
+      <Modal
+        visible={deleteModalVisible}
+        presentationStyle="pageSheet"
+        animationType="slide"
+        style={{ backgroundColor: colors.card }}
+      >
+        <View style={[styles.modalContainer, { backgroundColor: colors.card }]}>
+          <Text style={[styles.modalText, { color: colors.text }]}>
             This will delete all ratings in the app. This is not reversible.
           </Text>
           <RowView style={styles.spaceEvenlyRow}>
@@ -72,11 +79,6 @@ export const Settings = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    ...Platform.select({
-      ios: {
-        backgroundColor: PlatformColor("systemBackground"),
-      },
-    }),
     alignItems: "flex-start",
     justifyContent: "flex-start",
   },
@@ -89,6 +91,7 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     padding: 16,
+    flex: 1,
   },
   modalText: {
     fontSize: 48,

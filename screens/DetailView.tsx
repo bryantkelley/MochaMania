@@ -32,7 +32,7 @@ export const DetailView = ({ route }) => {
   }, [navigation, rating]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <ScrollView>
         <View style={styles.notesView}>
           <MapView

@@ -14,7 +14,7 @@ import { useContext, useEffect, useState } from "react";
 import { RatingsContext } from "../utils/Ratings";
 import { StackParamList, MochaRating } from "../utils/types";
 import { MochaRatingInput } from "../components/MochaRatingInput";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RowView } from "../components/RowView";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -22,6 +22,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 export const EditRating = ({ route }) => {
   const { rating } = route.params;
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
+  const { colors } = useTheme();
   const { updateRating, deleteRating } = useContext(RatingsContext);
 
   const [ratingToEdit, setRatingtoEdit] = useState<MochaRating>(rating);
@@ -79,9 +80,14 @@ export const EditRating = ({ route }) => {
               color={styles.dangerousButton.color}
             />
           </RowView>
-          <Modal visible={deleteModalVisible} presentationStyle="pageSheet" animationType="slide">
-            <View style={styles.modalContainer}>
-              <Text style={styles.modalText}>
+          <Modal
+            visible={deleteModalVisible}
+            presentationStyle="pageSheet"
+            animationType="slide"
+            style={{ backgroundColor: colors.card }}
+          >
+            <View style={[styles.modalContainer, { backgroundColor: colors.card }]}>
+              <Text style={[styles.modalText, { color: colors.text }]}>
                 Delete this rating? This action is not reversible.
               </Text>
               <RowView style={styles.spaceEvenlyRow}>
@@ -121,9 +127,10 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     padding: 16,
+    flex: 1,
   },
   modalText: {
-    fontSize: 48,
+    fontSize: 36,
   },
   spaceEvenlyRow: {
     justifyContent: "space-evenly",

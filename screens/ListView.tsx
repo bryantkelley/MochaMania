@@ -1,17 +1,11 @@
-import {
-  FlatList,
-  SafeAreaView,
-  StyleSheet,
-  Platform,
-  PlatformColor,
-  Button,
-  View,
-} from "react-native";
+import { FlatList, SafeAreaView, StyleSheet, Button, View, Text } from "react-native";
 import { MochaRatingListItem } from "../components/MochaRatingListItem";
 import { useContext, useEffect } from "react";
 import { RatingsContext } from "../utils/Ratings";
+import { useTheme } from "@react-navigation/native";
 
 export const ListView = ({ navigation }) => {
+  const { colors } = useTheme();
   const { ratings } = useContext(RatingsContext);
 
   useEffect(() => {
@@ -30,11 +24,18 @@ export const ListView = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        style={styles.list}
         data={ratings}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        ItemSeparatorComponent={() => (
+          <View style={[styles.separator, { backgroundColor: colors.border }]} />
+        )}
         renderItem={({ item, index }) => <MochaRatingListItem rating={item} key={index} />}
       />
+      {ratings?.length === 0 ? (
+        <View style={styles.noRatingsView}>
+          <Text style={[styles.noRatingsHeader, { color: colors.text }]}>No Ratings</Text>
+          <Text style={[styles.noRatingsText, { color: colors.text }]}>Go get some coffee.</Text>
+        </View>
+      ) : null}
     </SafeAreaView>
   );
 };
@@ -42,24 +43,21 @@ export const ListView = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "stretch",
     justifyContent: "center",
   },
-  list: {
-    ...Platform.select({
-      ios: {
-        backgroundColor: PlatformColor("secondarySystemBackground"),
-      },
-    }),
-  },
   separator: {
     margin: 0,
-    ...Platform.select({
-      ios: {
-        height: 1,
-        backgroundColor: PlatformColor("separator"),
-      },
-    }),
+    height: 1,
+  },
+  noRatingsView: {
+    flex: 1,
+    alignItems: "center",
+  },
+  noRatingsHeader: {
+    fontSize: 24,
+  },
+  noRatingsText: {
+    fontSize: 16,
   },
 });

@@ -1,13 +1,4 @@
-import {
-  StyleSheet,
-  Platform,
-  PlatformColor,
-  Button,
-  KeyboardAvoidingView,
-  ScrollView,
-  Keyboard,
-  View,
-} from "react-native";
+import { StyleSheet, Button, KeyboardAvoidingView, ScrollView, Keyboard, View } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import { RatingsContext } from "../utils/Ratings";
 import { MochaRating } from "../utils/types";
@@ -87,11 +78,6 @@ export const AddRating = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    ...Platform.select({
-      ios: {
-        backgroundColor: PlatformColor("secondarySystemBackground"),
-      },
-    }),
     alignItems: "stretch",
     justifyContent: "flex-start",
   },

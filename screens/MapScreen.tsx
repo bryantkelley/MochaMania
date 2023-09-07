@@ -66,7 +66,6 @@ export const MapScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "flex-start",
     justifyContent: "center",
   },
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     shadowRadius: 12,
     shadowOffset: { width: 12, height: -8 },
-    shadowOpacity: 0.6,
+    shadowOpacity: 0.5,
   },
   scoreBadge: {
     backgroundColor: "transparent",

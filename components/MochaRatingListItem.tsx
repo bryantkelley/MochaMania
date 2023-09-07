@@ -1,4 +1,4 @@
-import { Platform, PlatformColor, Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import type { StackParamList, MochaRating } from "../utils/types";
 import { RowView } from "./RowView";
 import { Badge } from "./Badge";
@@ -19,7 +19,7 @@ export const MochaRatingListItem = ({ rating }: MochaRatingListItemProps) => {
 
   return (
     <Pressable
-      style={[styles.container]}
+      style={[styles.container, { backgroundColor: colors.background }]}
       onPress={() => navigation.navigate("DetailView", { rating })}
     >
       <RowView>
@@ -35,7 +35,7 @@ export const MochaRatingListItem = ({ rating }: MochaRatingListItemProps) => {
           </RowView>
         </View>
         <View style={styles.buttonView}>
-          <Ionicons name="chevron-forward" size={24} color={PlatformColor("systemFill")} />
+          <Ionicons name="chevron-forward" size={24} color={colors.text} />
         </View>
       </RowView>
     </Pressable>
@@ -45,11 +45,6 @@ export const MochaRatingListItem = ({ rating }: MochaRatingListItemProps) => {
 const styles = StyleSheet.create({
   container: {
     padding: 8,
-    ...Platform.select({
-      ios: {
-        backgroundColor: PlatformColor("systemBackground"),
-      },
-    }),
     flex: 1,
   },
   scoreBadge: {

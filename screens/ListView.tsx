@@ -3,7 +3,6 @@ import { MochaRatingListItem } from "../components/MochaRatingListItem";
 import { useContext, useEffect } from "react";
 import { RatingsContext } from "../utils/Ratings";
 import { useTheme } from "@react-navigation/native";
-import { RowView } from "../components/RowView";
 
 export const ListView = ({ navigation }) => {
   const { colors } = useTheme();
@@ -31,7 +30,7 @@ export const ListView = ({ navigation }) => {
         )}
         renderItem={({ item, index }) => <MochaRatingListItem rating={item} key={index} />}
       />
-      {ratings.length === 0 ? (
+      {ratings?.length === 0 ? (
         <View style={styles.noRatingsView}>
           <Text style={[styles.noRatingsHeader, { color: colors.text }]}>No Ratings</Text>
           <Text style={[styles.noRatingsText, { color: colors.text }]}>Go get some coffee.</Text>

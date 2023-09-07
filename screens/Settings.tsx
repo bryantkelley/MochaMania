@@ -1,14 +1,5 @@
 import { useContext, useState } from "react";
-import {
-  Button,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  Platform,
-  PlatformColor,
-  Modal,
-  View,
-} from "react-native";
+import { Button, SafeAreaView, StyleSheet, Text, Modal, View } from "react-native";
 import { RatingsContext } from "../utils/Ratings";
 import { RowView } from "../components/RowView";
 import { useTheme } from "@react-navigation/native";
@@ -24,7 +15,7 @@ export const Settings = ({ navigation }) => {
       <Button
         title="Replace with Example Data"
         onPress={() => setReplaceModalVisible(true)}
-        color={styles.dangerousButton.color}
+        color={colors.notification}
       />
       <Modal visible={replaceModalVisible} presentationStyle="pageSheet" animationType="slide">
         <View style={[styles.modalContainer, { backgroundColor: colors.card }]}>
@@ -38,7 +29,7 @@ export const Settings = ({ navigation }) => {
                 dangerousLoadExampleRatings();
                 setReplaceModalVisible(false);
               }}
-              color={styles.dangerousButton.color}
+              color={colors.notification}
             />
             <Button title="Cancel" onPress={() => setReplaceModalVisible(false)} />
           </RowView>
@@ -47,7 +38,7 @@ export const Settings = ({ navigation }) => {
       <Button
         title="Delete Everything"
         onPress={() => setDeleteModalVisible(true)}
-        color={styles.dangerousButton.color}
+        color={colors.notification}
       />
       <Modal
         visible={deleteModalVisible}
@@ -66,7 +57,7 @@ export const Settings = ({ navigation }) => {
                 dangerousClearAllRatings();
                 setDeleteModalVisible(false);
               }}
-              color={styles.dangerousButton.color}
+              color={colors.notification}
             />
             <Button title="Cancel" onPress={() => setDeleteModalVisible(false)} />
           </RowView>
@@ -81,13 +72,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "flex-start",
     justifyContent: "flex-start",
-  },
-  dangerousButton: {
-    ...Platform.select({
-      ios: {
-        color: PlatformColor("systemRed"),
-      },
-    }),
   },
   modalContainer: {
     padding: 16,

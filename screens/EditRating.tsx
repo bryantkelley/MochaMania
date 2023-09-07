@@ -1,7 +1,5 @@
 import {
   StyleSheet,
-  Platform,
-  PlatformColor,
   Button,
   KeyboardAvoidingView,
   ScrollView,
@@ -77,7 +75,7 @@ export const EditRating = ({ route }) => {
             <Button
               title="Delete Rating"
               onPress={() => setDeleteModalVisible(true)}
-              color={styles.dangerousButton.color}
+              color={colors.notification}
             />
           </RowView>
           <Modal
@@ -98,7 +96,7 @@ export const EditRating = ({ route }) => {
                     setDeleteModalVisible(false);
                     navigation.navigate("MainView");
                   }}
-                  color={styles.dangerousButton.color}
+                  color={colors.notification}
                 />
                 <Button title="Cancel" onPress={() => setDeleteModalVisible(false)} />
               </RowView>
@@ -130,12 +128,5 @@ const styles = StyleSheet.create({
   spaceEvenlyRow: {
     justifyContent: "space-evenly",
     marginVertical: 16,
-  },
-  dangerousButton: {
-    ...Platform.select({
-      ios: {
-        color: PlatformColor("systemRed"),
-      },
-    }),
   },
 });

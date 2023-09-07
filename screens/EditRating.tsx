@@ -113,11 +113,6 @@ export const EditRating = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    ...Platform.select({
-      ios: {
-        backgroundColor: PlatformColor("secondarySystemBackground"),
-      },
-    }),
     alignItems: "stretch",
     justifyContent: "flex-start",
   },

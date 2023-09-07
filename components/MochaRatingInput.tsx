@@ -1,13 +1,4 @@
-import {
-  StyleSheet,
-  Platform,
-  PlatformColor,
-  KeyboardAvoidingView,
-  TextInput,
-  Text,
-  View,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, KeyboardAvoidingView, TextInput, Text, View, ScrollView } from "react-native";
 import { Dispatch, SetStateAction } from "react";
 import { DrinkSizes, DrinkTemps, Milks, MochaRating } from "../utils/types";
 import { RowView } from "../components/RowView";
@@ -26,7 +17,7 @@ export const MochaRatingInput = ({ rating, setRating }: MochaRatingInputProps) =
   const { locationName, coordinate, date, size, milk, temp, score, notes } = rating;
 
   return (
-    <KeyboardAvoidingView style={styles.container}>
+    <KeyboardAvoidingView style={[styles.container]}>
       <ScrollView>
         <View style={styles.inputContainer}>
           <Text id="locationNameLabel" style={[styles.inputLabel, { color: colors.text }]}>
@@ -36,7 +27,7 @@ export const MochaRatingInput = ({ rating, setRating }: MochaRatingInputProps) =
             onChangeText={(text) => setRating((prev) => ({ ...prev, locationName: text }))}
             value={locationName}
             placeholder="Coffee Shop Name"
-            style={[styles.input, { color: colors.text }]}
+            style={[styles.input, { color: colors.text, backgroundColor: colors.card }]}
             aria-labelledby="locationNameLabel"
           />
         </View>
@@ -44,7 +35,7 @@ export const MochaRatingInput = ({ rating, setRating }: MochaRatingInputProps) =
           <Text id="dateLabel" style={[styles.inputLabel, { color: colors.text }]}>
             Date
           </Text>
-          <RowView style={styles.dateContainer}>
+          <RowView style={[styles.dateContainer, { backgroundColor: colors.card }]}>
             <DateTimePicker
               aria-labelledby="dateLabel"
               value={new Date(date)}
@@ -85,7 +76,7 @@ export const MochaRatingInput = ({ rating, setRating }: MochaRatingInputProps) =
             <Picker
               selectedValue={score}
               onValueChange={(itemValue) => setRating((prev) => ({ ...prev, score: itemValue }))}
-              style={styles.pickerInput}
+              style={[styles.pickerInput, { backgroundColor: colors.card }]}
             >
               <Picker.Item value={2} label="✅" color={colors.text} />
               <Picker.Item value={1} label="⚠️" color={colors.text} />
@@ -99,7 +90,7 @@ export const MochaRatingInput = ({ rating, setRating }: MochaRatingInputProps) =
             <Picker
               selectedValue={size}
               onValueChange={(itemValue) => setRating((prev) => ({ ...prev, size: itemValue }))}
-              style={styles.pickerInput}
+              style={[styles.pickerInput, { backgroundColor: colors.card }]}
             >
               {DrinkSizes.map((d) => (
                 <Picker.Item value={d} label={`${d}oz`} key={d} color={colors.text} />
@@ -113,7 +104,7 @@ export const MochaRatingInput = ({ rating, setRating }: MochaRatingInputProps) =
             <Picker
               selectedValue={temp}
               onValueChange={(itemValue) => setRating((prev) => ({ ...prev, temp: itemValue }))}
-              style={styles.pickerInput}
+              style={[styles.pickerInput, { backgroundColor: colors.card }]}
             >
               {DrinkTemps.map((d) => (
                 <Picker.Item value={d} label={d} key="d" color={colors.text} />
@@ -129,7 +120,7 @@ export const MochaRatingInput = ({ rating, setRating }: MochaRatingInputProps) =
             <Picker
               selectedValue={milk}
               onValueChange={(itemValue) => setRating((prev) => ({ ...prev, milk: itemValue }))}
-              style={styles.pickerInput}
+              style={[styles.pickerInput, { backgroundColor: colors.card }]}
             >
               {Milks.map((d) => (
                 <Picker.Item value={d} label={d} key={d} color={colors.text} />
@@ -145,7 +136,7 @@ export const MochaRatingInput = ({ rating, setRating }: MochaRatingInputProps) =
             onChangeText={(text) => setRating((prev) => ({ ...prev, notes: text }))}
             value={notes}
             placeholder="Notes"
-            style={[styles.input, { color: colors.text }]}
+            style={[styles.input, { color: colors.text, backgroundColor: colors.card }]}
             aria-labelledby="notesLabel"
           />
         </View>
@@ -157,11 +148,6 @@ export const MochaRatingInput = ({ rating, setRating }: MochaRatingInputProps) =
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    ...Platform.select({
-      ios: {
-        backgroundColor: PlatformColor("secondarySystemBackground"),
-      },
-    }),
     alignItems: "stretch",
     justifyContent: "flex-start",
   },
@@ -176,21 +162,11 @@ const styles = StyleSheet.create({
   input: {
     minHeight: 48,
     padding: 8,
-    ...Platform.select({
-      ios: {
-        backgroundColor: PlatformColor("tertiarySystemBackground"),
-      },
-    }),
     borderRadius: 16,
   },
   pickerInput: {
     minHeight: 48,
     padding: 4,
-    ...Platform.select({
-      ios: {
-        backgroundColor: PlatformColor("tertiarySystemBackground"),
-      },
-    }),
     borderRadius: 16,
   },
   pickerInputContainer: {
@@ -209,11 +185,6 @@ const styles = StyleSheet.create({
   dateContainer: {
     minHeight: 48,
     paddingTop: 4,
-    ...Platform.select({
-      ios: {
-        backgroundColor: PlatformColor("tertiarySystemBackground"),
-      },
-    }),
     borderRadius: 16,
   },
 });
